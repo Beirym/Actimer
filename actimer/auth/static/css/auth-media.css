@@ -1,0 +1,32 @@
+@media (max-width: 600px) {
+    .auth-window {
+        width: 400px;
+        align-content: center;
+    }
+
+    .logo {
+        height: 110px;
+    }
+
+    .auth-window .field {
+        width: 300px;
+    }
+}
+
+@media (max-width: 400px) {
+    .auth-window {
+        width: 300px;
+        align-content: center;
+    }
+
+    .auth-window .field {
+        width: 200px;
+    }
+
+    .auth-window .action-button {
+        max-width: 200px;
+        font-size: 18px;
+    }
+}
+
+

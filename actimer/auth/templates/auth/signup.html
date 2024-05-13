@@ -1,0 +1,17 @@
+{% extends 'auth/auth.html' %}
+
+{% block title %} Sign Up {% endblock %}
+
+{% block fields %}
+    <input id="email" class="field" type="email" placeholder="E-Mail">
+    <input id="password" class="field" type="password" placeholder="Password">
+{% endblock %}
+
+{% block buttons %}
+    <button class="action-button" onclick="sendAuthData(auth_type='signup', '{{ csrf_token }}')">
+        <p>Sign Up</p>
+    </button>
+    <a href="{% url 'login' %}" class="change-auth-mode-button">
+        <p>Log In</p>
+    </a>
+{% endblock %}

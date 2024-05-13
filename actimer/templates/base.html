@@ -1,0 +1,46 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <title>
+            {% block title %} Actimer {% endblock %}
+        </title>
+
+        <link rel="stylesheet" type="text/css" href="{% static 'css/styles.css' %}">
+        <link rel="stylesheet" type="text/css" href="{% static 'css/styles-media.css' %}">
+        <link rel="shortcut icon" type="image/x-icon" href="{% static 'icons/favicon.svg' %}">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link 
+            href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" 
+            rel="stylesheet">
+
+    </head>
+    <body>
+        {% block body %}
+            <wrapper>
+                {% include 'inc/sidebar.html' %}
+                    
+                <div class="content">
+                    {% block content %}{% endblock %}
+                </div>
+
+                <div class="modal-window-zone">
+                    {% include 'inc/modal_windows.html' %}
+                </div>
+            </wrapper>
+        {% endblock %}
+
+       
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+        <script src="{% static 'js/format.js' %}"></script>
+        <script src="{% static 'js/html-elements.js' %}"></script>
+        <script src="{% static 'js/sidebar.js' %}"></script>
+        <script src="{% static 'js/modal-window.js' %}"></script>
+        <script src="{% static 'js/timer.js' %}"></script>
+    </body>
+</html>

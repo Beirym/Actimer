@@ -1,0 +1,112 @@
+@import 'reset.css';
+@import 'fonts.css';
+
+
+/* Main settings */
+
+body {
+    background: #FFFFFF;
+}
+
+wrapper {
+    display: grid;
+    padding: 15px;
+}
+
+.content {
+    width: 80%;
+    margin-left: auto;
+    margin-right: 0;
+    height: 100%;
+}
+
+.container {
+    display: block;
+    margin: 0 auto;
+    padding: 10px;
+}
+
+.container .heading {
+    display: flex;
+    column-gap: 10px;
+    align-items: flex-start;
+}
+.container .heading h1 {
+    font-size: 24px;
+    color: #343434;
+}
+
+/* Other settings */
+
+/* Selection color */
+::selection {
+    background: #4a4a4a85;
+    color: #ffff;
+}
+
+::-moz-selection {
+    background: #4a4a4a85;
+    color: #ffff;
+}
+
+
+/* Scrollbar */
+
+/* width */
+::-webkit-scrollbar {
+    width: 5px;
+    height: 5px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    background: #F5F5F5; 
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: #595959;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: #373737;
+}
+
+
+/* Loading spinner */
+.spinner {
+    animation: rotate 2s linear infinite;
+    z-index: 2;
+    top: 50%;
+    left: 50%;
+    width: 25px;
+    height: 25px;
+    
+    & .path {
+      stroke: #ffff;
+      stroke-linecap: round;
+      animation: dash 1.5s ease-in-out infinite;
+    }    
+}
+  
+@keyframes rotate {
+    100% {
+    transform: rotate(360deg);
+    }
+}
+
+@keyframes dash {
+    0% {
+    stroke-dasharray: 1, 150;
+    stroke-dashoffset: 0;
+    }
+    50% {
+    stroke-dasharray: 90, 150;
+    stroke-dashoffset: -35;
+    }
+    100% {
+    stroke-dasharray: 90, 150;
+    stroke-dashoffset: -124;
+    }
+}
