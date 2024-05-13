@@ -1,0 +1,58 @@
+{% load static %}
+
+<link rel="stylesheet" type="text/css" href="{% static 'css/inc/sidebar.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'css/inc/sidebar-media.css' %}">
+
+
+<button id="sidebar-button" class="sidebar-button">
+    <img id="sidebar-button-img" src="{% static 'icons/sidebar/open-button.svg' %}">
+</button>
+
+<sidebar id="sidebar">
+    <img class="logo" src="{% static 'img/logo.svg' %}">
+
+    <nav>
+        <a href="{% url 'timers' %}" id="timers"><p>Timer</p></a>
+        <a href="#" id="stats"><p>Stats</p></a>
+        <a href="#" id="history"><p>History</p></a>
+        <a href="#" id="activities"><p>Activities</p></a>
+        <a href="#" id="profile"><p>Profile</p></a>
+    </nav>
+
+
+    <footer>
+        <div class="buttons">
+            <button onclick="showModalWindow(
+                                'standartModal', 
+                                height='200px',
+                                heading='Log out', 
+                                content='Are you sure you want to log out?', 
+                                accept_text='Log out', 
+                                accept_action=`logout()`, 
+                            )">
+                <p>Log Out</p>
+
+                <script>
+                    function logout() {
+                        $.ajax({
+                            type: "POST",
+                            url: "{% url 'logout' %}",
+                            data: {
+                                csrfmiddlewaretoken: "{{ csrf_token }}",
+                            },
+        
+                            success: function(response){
+                                location.reload()
+                            },
+                        });
+                    }
+                </script>
+            </button>
+        </div>
+
+        <p class="copyrigth">
+            Actimer &copy; 2024 <br>
+            All rights reserved
+        </p>
+    </footer>
+</sidebar>

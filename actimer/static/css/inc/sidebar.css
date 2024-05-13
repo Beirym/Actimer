@@ -1,0 +1,74 @@
+.sidebar-button {
+    display: none;
+}
+
+sidebar {
+    display: grid;
+    position: fixed;
+    padding: 30px;
+    width: 20%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    text-align: center;
+    align-items: flex-start;
+    background-color: #2D2D2D;
+}
+
+sidebar .logo {
+    display: block;
+    margin: 0 auto;
+    height: 50px;
+    margin-bottom: 20px;
+}
+
+
+nav {
+    display: grid;
+    row-gap: 20px;
+    margin-bottom: 20px;
+}
+
+nav a {
+    font-size: 24px;
+    color: #ffff;
+    text-decoration: none;
+    transition: 0.25s;
+}
+nav a:hover {
+    color: #8C8C8C;
+    transition: 0.25s;
+}
+.active-page {
+    font-size: 24px;
+    color: #8C8C8C;
+    text-decoration: none;
+    transition: 0.25s;
+}
+
+
+footer {
+    display: flex;
+    height: 100%;
+    flex-direction: column;
+    justify-content: flex-end;
+}
+footer .buttons {
+    display: grid;
+    row-gap: 5px;
+    margin-bottom: 20px;
+}
+footer .buttons button {
+    font-size: 18px;
+    color: #ffff;
+    transition: 0.25s;
+}
+footer .buttons button:hover {
+    color: #8C8C8C;
+    transition: 0.25s;
+}
+
+footer .copyrigth {
+    font-size: 14px;
+    color: #ffffff5e;
+}
