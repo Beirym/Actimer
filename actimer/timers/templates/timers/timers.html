@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %} Actimer {% endblock %}
+
+{% block content %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/timers.css' %}">
+
+    <div class="container">
+        <input type="text" id="timer" class="timer" value="00:00:00" disabled>
+
+        <div class="activity">
+            <h1>Activity</h1>
+            <input id="activity" class="field base-field" type="text" placeholder="Specify your activity">
+        </div>
+
+        <div class="buttons">
+            <button id="start" class="long-button" onclick="startTimer('{{ csrf_token }}')">
+                <img src="{% static 'icons/start-timer.svg' %}">
+            </button>
+            
+            <button id="pause" class="middle-button" style="display: none;" onclick="pauseTimer('{{ csrf_token }}')">
+                <img src="{% static 'icons/stop-timer.svg' %}">
+            </button>
+
+            <button id="reset" 
+                    class="short-button" 
+                    style="display: none;" 
+                    onclick="resetTimer('{{ csrf_token }}', stop_timer=true)">
+                        <img src="{% static 'icons/reset-timer.svg' %}">
+            </button>
+        </div>
+    </div>  
+{% endblock %}
