@@ -24,7 +24,7 @@ def is_unauthorized(func):
         user = is_auth(request)
 
         if user is not None:
-            return redirect('timers')
+            return redirect('timer')
         return func(request)
         
     return wrapper

@@ -1,0 +1,62 @@
+{% load static %}
+
+{% if timer_status == 'active' %}
+    <button id="start" 
+            class="long-button" 
+            style="display: none;"
+            onclick="startTimer('{{ csrf_token }}')">
+        <img src="{% static 'icons/start-timer.svg' %}">
+    </button>
+
+    <button id="pause" 
+            class="middle-button"
+            onclick="pauseTimer('{{ csrf_token }}')">
+        <img src="{% static 'icons/stop-timer.svg' %}">
+    </button>
+
+    <button id="reset" 
+            class="short-button" 
+            onclick="resetTimer('{{ csrf_token }}', stop_timer=true)">
+        <img src="{% static 'icons/reset-timer.svg' %}">
+    </button>
+{% elif timer_status == 'paused' %}
+    <button id="start" 
+            class="long-button" 
+            onclick="startTimer('{{ csrf_token }}')">
+        <img src="{% static 'icons/start-timer.svg' %}">
+    </button>
+
+    <button id="pause" 
+            class="middle-button"
+            style="display: none;"
+            onclick="pauseTimer('{{ csrf_token }}')">
+        <img src="{% static 'icons/stop-timer.svg' %}">
+    </button>
+
+    <button id="reset" 
+            class="short-button" 
+            onclick="resetTimer('{{ csrf_token }}', stop_timer=true)">
+        <img src="{% static 'icons/reset-timer.svg' %}">
+    </button>
+
+{% else %}
+    <button id="start" 
+            class="long-button" 
+            onclick="startTimer('{{ csrf_token }}')">
+        <img src="{% static 'icons/start-timer.svg' %}">
+    </button>
+
+    <button id="pause" 
+            class="middle-button"
+            style="display: none;" 
+            onclick="pauseTimer('{{ csrf_token }}')">
+        <img src="{% static 'icons/stop-timer.svg' %}">
+    </button>
+
+    <button id="reset" 
+            class="short-button" 
+            style="display: none;"
+            onclick="resetTimer('{{ csrf_token }}', stop_timer=true)">
+        <img src="{% static 'icons/reset-timer.svg' %}">
+    </button>
+{% endif %}

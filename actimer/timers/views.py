@@ -1,16 +1,25 @@
 from django.shortcuts import render
 from django.http import HttpResponse, JsonResponse
 from django.utils import timezone
+from django.urls import reverse_lazy
 
 from .models import *
+from .timers import *
 
 from auth.decorators import is_authorized
 from users.models import User
 
 
 @is_authorized
-def timers(request):
-    return render(request, 'timers/timers.html')
+def timer(request):
+    user = User.objects.get(pk=request.session['user']['id'])
+    active_timers = Timer.objects.filter(user=user, endTime=None)
+    
+    context = {
+        'active_timers': len(active_timers),
+        'timer': getTimerData(request)
+    }
+    return render(request, 'timers/timer.html', context)
 
 
 @is_authorized
@@ -22,7 +31,10 @@ def startTimer(request):
         return JsonResponse({'error': 'Timer already started'}, status=400)
 
     activity = request.POST.get('activity')
-    Timer.objects.create(user=user, activity=activity)
+    timer = Timer.objects.create(user=user, activity=activity)
+
+    deleteTimerDataFromSession(request)
+    addTimerDataToSession(request, timer)
     return HttpResponse(status=204)
 
 
@@ -37,6 +49,8 @@ def stopTimer(request):
         timer = active_timers[0]
         timer.endTime = timezone.now()
         timer.save()
+
+        deleteTimerDataFromSession(request)
         return HttpResponse(status=204)
 
 
@@ -68,3 +82,19 @@ def pauseTimer(request):
         timer.pauses = pauses
         timer.save()
         return HttpResponse(status=204)
+
+
+@is_authorized
+def clearTimers(request):
+    user = User.objects.get(pk=request.session['user']['id'])
+    active_timers = Timer.objects.filter(user=user, endTime=None)
+
+    if len(active_timers) == 0:
+        return JsonResponse({'error': 'Active timers does not exist'}, status=400)
+    else:
+        for timer in active_timers:
+            deleteTimerDataFromSession(request)
+            timer.endTime = timezone.now()
+            timer.save()
+
+        return JsonResponse({'link': reverse_lazy('timer')}, status=301)

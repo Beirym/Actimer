@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load timer_tags %}
+
+{% block title %} Actimer {% endblock %}
+
+{% block content %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/timers.css' %}">
+
+    <div class="container">
+        <input type="text" id="timer" class="timer" value="{{ timer.current_time }}" disabled>
+
+        <div class="activity">
+            <h1>Activity</h1>
+            <input id="activity" 
+                   class="field base-field" 
+                   type="text" 
+                   placeholder="Specify your activity"
+                   {% if timer.status != 'disabled' %} 
+                        value="{{ timer.activity }}"
+                        disabled 
+                    {% endif %}>
+        </div>
+
+        <div class="buttons">
+            {% addButtonsHtml timer.status %}
+        </div>
+        {% if active_timers > 0 %}
+        <button id="clear-timers" 
+                class="clear-timers" 
+                onclick="showModalWindow(
+                            'standartModal', 
+                            height='200px',
+                            heading='Clear all the timers', 
+                            content='Are you sure you want to clear all the active timers?', 
+                            accept_text='Clear all', 
+                            accept_action= `clearTimers('{{ csrf_token }}')`, 
+                        )">
+            <p>Stop all the timers</p>
+        </button>
+    {% endif %}
+    </div>  
+
+    {% if timer.status == 'active' %}
+        <script>
+            window.addEventListener('load', () => {
+                setTime('{{ timer.current_time }}')
+                startTimer('{{ csrf_token }}', send_ajax=false)
+            });
+        </script>
+    {% elif timer.status == 'paused' %}
+        <script>
+            window.addEventListener('load', () => {
+                setTime('{{ timer.current_time }}')
+                pauseTimer('{{ csrf_token }}', send_ajax=false)
+            });
+        </script>
+    {% endif %}
+{% endblock %}

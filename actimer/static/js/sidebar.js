@@ -1,9 +1,9 @@
 $(document).ready(function setColourForSelectedSidebarChapter() {
     selectedChapter = String(document.URL.split('/')[3]);
     if (selectedChapter == '') {
-        selectedChapter = 'timers'
+        selectedChapter = 'timer'
     }
-    $('#' + selectedChapter).addClass('active-page');
+    $('#' + selectedChapter + '_page').addClass('active-page');
 })
 
 

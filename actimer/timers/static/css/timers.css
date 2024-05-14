@@ -86,3 +86,11 @@
 .container .buttons .short-button {
     width: 40px;
 }
+.container .clear-timers {
+    color: #2D2D2D;
+    transition: 0.25s;
+}
+.container .clear-timers:hover {
+    color: #666666;
+    transition: 0.25s;
+}

@@ -3,28 +3,41 @@ let seconds = 0, minutes = 0, hours = 0;
 let timerIsPaused = false;
 
 
+// Sets current timer time
+function setTime(time) {
+    if (time) {
+        time_parts = time.split(':').map((x) => Number(x));
+        hours = time_parts[0]
+        minutes = time_parts[1]
+        seconds = time_parts[2]
+    };
+};
+
+
 // Timer starting
-function startTimer(csrf_token) {
+function startTimer(csrf_token, send_ajax=true) {
     if ($('#activity').val().length === 0) { // Activity isn't filled in
         changeStyles('invalid_activity');
     } else {
-        if (timerIsPaused === false) { // Create new timer
-            activity = $('#activity').val();
-            sendAjaxRequest(
-                'start_timer/',
-                data='{"csrfmiddlewaretoken": "{0}", "activity": "{1}"}'.f(csrf_token, activity),
-                error_actions_func=function () {
-                    resetTimer(csrf_token);
-                    changeStyles('start_timer_error');
-                }
-            );
-        } 
-        else { // Start current timer
-            timerIsPaused = false; 
-            sendAjaxRequest(
-                'pause_timer/', 
-                data='{"csrfmiddlewaretoken": "{0}", "pause_action": "{1}"}'.f(csrf_token, 'stop'),
-            );
+        if (send_ajax === true) {
+            if (timerIsPaused === false) { // Create new timer
+                activity = $('#activity').val();
+                sendAjaxRequest(
+                    'start_timer/',
+                    data='{"csrfmiddlewaretoken": "{0}", "activity": "{1}"}'.f(csrf_token, activity),
+                    error_actions_func=function () {
+                        resetTimer(csrf_token);
+                        changeStyles('start_timer_error');
+                    }
+                );
+            } 
+            else { // Start current timer
+                timerIsPaused = false; 
+                sendAjaxRequest(
+                    'pause_timer/', 
+                    data='{"csrfmiddlewaretoken": "{0}", "pause_action": "{1}"}'.f(csrf_token, 'stop'),
+                );
+            }
         }
 
         changeStyles('start_timer');
@@ -34,9 +47,13 @@ function startTimer(csrf_token) {
 
 
 // Timer pausing
-function pauseTimer(csrf_token) {
+function pauseTimer(csrf_token, send_ajax=true) {
     timerIsPaused = true;
-    sendAjaxRequest('pause_timer/', data='{"csrfmiddlewaretoken": "{0}", "pause_action": "{1}"}'.f(csrf_token, 'add'));
+
+    if (send_ajax === true) {
+        sendAjaxRequest('pause_timer/', data='{"csrfmiddlewaretoken": "{0}", "pause_action": "{1}"}'.f(csrf_token, 'add'));
+    }
+
     changeStyles('pause_timer');
     clearInterval(timerInterval);
 }
@@ -76,6 +93,13 @@ function formatTime(time) {
     return (time < 10) ? "0" + time : time;
 }
 
+
+// Clear all the active timers
+function clearTimers(csrf_token) {
+    sendAjaxRequest('clear_timers/', data='{"csrfmiddlewaretoken": "{0}"}'.f(csrf_token));
+}
+
+
 // System functions
 function sendAjaxRequest(url, data, error_actions_func) {
     href = window.location.href;
@@ -86,12 +110,16 @@ function sendAjaxRequest(url, data, error_actions_func) {
         data: JSON.parse(data),
 
         error: function(response) {
-            error_text = response.responseJSON['error']
-            showModalWithError(error_text);
-
-            if (error_actions_func !== undefined) {
-                error_actions_func();
-            }
+            if (response.status == 301) {
+                window.location.assign(response.responseJSON['link']);
+            } else {
+                error_text = response.responseJSON['error']
+                showModalWithError(error_text);
+    
+                if (error_actions_func !== undefined) {
+                    error_actions_func();
+                }
+            };
         }
     })
 }
@@ -134,6 +162,7 @@ function changeStyles(config) {
             $('#start').removeClass('long-button');
             $('#start').addClass('middle-button');
             $('#start').css('display', 'block');
+            $('#reset').css('display', 'block');
             $('#pause').css('display', 'none');
             break;
 
