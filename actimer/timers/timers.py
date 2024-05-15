@@ -1,6 +1,8 @@
 from django.utils import timezone
 
-from timers.models import Timer
+from .models import Timer
+
+from users.models import User
 
 import datetime
 
@@ -35,7 +37,7 @@ def getTimerDuration(timer: Timer) -> datetime.timedelta:
     return timer_duration
 
 
-def tiemerIsPaused(timer: Timer) -> bool:
+def timerIsPaused(timer: Timer) -> bool:
     if timer.endTime is None:
         if timer.pauses:
             for i in timer.pauses.values():
@@ -52,16 +54,38 @@ def getTimerCurrentTime(timer: Timer) -> str:
     return f"{hours}:{minutes}:{seconds}"
 
 
-def getTimerData(request) -> dict:
+def getTimerData(timer: Timer|None) -> dict:
     timer_data = {
         'status': 'disabled',
         'activity': None,
         'current_time': '00:00:00'
     }
-    if 'timer' in request.session.keys():
-        timer_id = request.session['timer']['id']
-        timer = Timer.objects.get(pk=timer_id)
-        timer_data['status'] = 'active' if tiemerIsPaused(timer) is False else 'paused'
-        timer_data['activity'] = timer.activity
-        timer_data['current_time'] = getTimerCurrentTime(timer)
+    if timer:
+        if timer.endTime:
+            timer_status = 'disabled'
+        elif timerIsPaused(timer):
+            timer_status = 'paused'
+        else:
+            timer_status = 'active'
+
+        timer_current_time = '00:00:00' if timer.endTime else getTimerCurrentTime(timer)
+
+        timer_data = {
+            'status': timer_status,
+            'activity': timer.activity,
+            'current_time': timer_current_time,
+        }
+
     return timer_data
+
+
+def getActiveTimer(request, user) -> dict:
+    if 'timer' in request.session.keys():
+        timer = Timer.objects.get(pk=request.session['timer']['id'])
+    else:
+        try:
+            timer = Timer.objects.filter(user=user, endTime=None)[0]
+        except IndexError:
+            timer = None
+
+    return getTimerData(timer)

@@ -13,11 +13,16 @@ from users.models import User
 @is_authorized
 def timer(request):
     user = User.objects.get(pk=request.session['user']['id'])
-    active_timers = Timer.objects.filter(user=user, endTime=None)
+    active_timers = Timer.objects.filter(user=user, endTime=None).count()
     
+    if active_timers > 0:
+        timer = getActiveTimer(request, user)
+    else:
+        timer = getTimerData(timer=None)
+
     context = {
-        'active_timers': len(active_timers),
-        'timer': getTimerData(request)
+        'active_timers': active_timers,
+        'timer': timer,
     }
     return render(request, 'timers/timer.html', context)
 
