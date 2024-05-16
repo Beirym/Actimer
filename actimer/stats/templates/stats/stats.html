@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load stats_tags %}
+
+{% block title %} Stats {% endblock %}
+
+{% block content %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/stats.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/stats-media.css' %}">
+
+    <div class="container">
+        <div class="heading">
+            <h1>Stats</h1>
+        </div>
+
+        <div class="stats-row">
+            {% for sb in stats_blocks %}
+                <div class="stats-block">
+                    <div class="heading">
+                        <h2>{{ sb.period.title|title }}</h2>
+
+                        {% with sb.improvement_percent as imp %}
+                            {% if imp > 0 %}
+                                <p class="positive-percent">{{ imp }}% better than last {{ sb.period.title }}</p>
+                            {% elif imp < 0 %}
+                                <p class="negative-percent">{{ imp }}% worse than last {{ sb.period.title }}</p>
+                            {% else %}
+                                <p>The same as last {{ sb.period.title }}</p>
+                            {% endif %}
+                        {% endwith %}
+                    </div>
+                    <div class="activities">
+                        {% for a in sb.activities %}
+                            <div class="activity">
+                                <h2>{{ a.title }}</h2>
+                                <p>{{ a.total_time }}</p>
+                            </div>
+                        {% empty %}
+                            <p>Not enough data</p>
+                        {% endfor %}
+                    </div>
+
+                    <p class="period">
+                        Period from {{ sb.period.start_date }} to {{ sb.period.end_date }}
+                    </p>
+                </div>
+            {% endfor %}
+        </div>
+    </div> 
+{% endblock %}

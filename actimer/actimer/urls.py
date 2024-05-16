@@ -6,4 +6,5 @@ urlpatterns = [
     path('users/', include('users.urls')),
     
     path('', include('timers.urls')),
+    path('stats/', include('stats.urls')),
 ]

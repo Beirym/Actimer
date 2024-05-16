@@ -1,0 +1,64 @@
+.stats-row {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    column-gap: 10px;
+}
+
+.stats-block {
+    display: grid;
+    height: auto;
+    width: 100%;
+    padding: 20px;
+    border-radius: 15px;
+    background-color: #F5F5F5;
+}
+
+.stats-block .heading {
+    display: flex;
+    justify-content: space-between;
+}
+.stats-block .heading h2 {
+    font-size: 20px;
+    font-weight: 400;
+    color: #595959;
+}
+.stats-block .heading p {
+    font-size: 14px;
+    font-weight: 300;
+}
+
+.stats-block .activities {
+    display: grid;
+    row-gap: 5px;
+    align-content: flex-end;
+}
+.stats-block .activities .activity {
+    display: flex;
+    column-gap: 10px;
+    justify-content: space-between;
+}
+.stats-block .activities .activity h2 {
+    max-width: 80%;
+    font-size: 20px;
+    font-weight: 400;
+    color: #000000;
+}
+.stats-block .activities .activity p {
+    font-size: 20px;
+    font-weight: 700;
+    color: #000000;
+}
+.positive-percent {
+    color: #66b353;
+}
+.negative-percent {
+    color: #8A2C2C;
+}
+
+.period {
+    font-size: 10px;
+    margin-top: 20px;
+    align-content: flex-end;
+    color: #595959;
+}

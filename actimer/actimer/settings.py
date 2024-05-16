@@ -20,6 +20,7 @@ INSTALLED_APPS = [
     'auth.apps.AuthConfig',
     'users.apps.UsersConfig',
     'timers.apps.TimersConfig',
+    'stats.apps.StatsConfig',
 
     'django.contrib.contenttypes',
     'django.contrib.sessions',
@@ -86,6 +87,7 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'auth/static'),
     os.path.join(BASE_DIR, 'users/static'),
     os.path.join(BASE_DIR, 'timers/static'),
+    os.path.join(BASE_DIR, 'stats/static'),
 ]
 if DEBUG is False:
     STATIC_ROOT = 'static'

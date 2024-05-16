@@ -1,0 +1,9 @@
+@media (max-width: 1000px) {
+    .stats-row {
+        display: block;
+    }
+
+    .stats-block {
+        margin-bottom: 10px;
+    }
+}

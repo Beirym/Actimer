@@ -23,16 +23,18 @@ wrapper {
 .container {
     display: block;
     margin: 0 auto;
-    padding: 10px;
+    padding: 5px 20px 5px 20px;
 }
 
 .container .heading {
     display: flex;
     column-gap: 10px;
+    margin-bottom: 20px;
     align-items: flex-start;
 }
 .container .heading h1 {
-    font-size: 24px;
+    font-size: 32px;
+    font-weight: 400;
     color: #343434;
 }
 
