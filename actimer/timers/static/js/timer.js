@@ -16,9 +16,22 @@ function setTime(time) {
 
 // Timer starting
 function startTimer(csrf_token, send_ajax=true) {
-    if ($('#activity').val().length === 0) { // Activity isn't filled in
+    activity = $('#activity').val()
+    if (activity.length === 0) { // Activity isn't filled in
         changeStyles('invalid_activity');
-    } else {
+    } 
+    else if (activity.length > 50) { // Activity is too large
+        changeStyles('invalid_activity');
+        showModalWindow(
+            'standartModal', 
+            height='230px',
+            heading='Error', 
+            content='The activity name can contain a maximum of 50 characters.', 
+            accept_text='Close', 
+            accept_action= `hideModalWindow('standartModal')`, 
+        );
+    }
+    else {
         if (send_ajax === true) {
             if (timerIsPaused === false) { // Create new timer
                 activity = $('#activity').val();
