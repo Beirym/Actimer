@@ -1,0 +1,33 @@
+<div class="activities-list">
+    {% for a in activities.list %}
+        <div class="activity-card">
+            <h2>{{ a.title }}</h2>
+            <div class="data">
+                <p>Total timers <span>{{ a.timers_count }}</span></p>
+                <p>Total duration <span>{{ a.total_duration }}</span></p>
+            </div>
+        </div>
+    {% empty %}
+        <p class="empty">This activities page is clear</p>
+        <button class="pagination-page another-page" 
+                onclick="changePage(new_page='1'); loadActivities()">
+                <p>Back to the first page</p>
+        </button>
+    {% endfor %}
+</div>
+
+{% if paginator.pages.count > 1 %}
+    <div class="pagination">
+        {% for p in paginator.pages.range %}
+            {% if paginator.current_page == p %}
+                <p class="pagination-page current-page">{{ p }}</p>
+            {% elif p > paginator.current_page|add:-3 and p < paginator.current_page|add:3 %}
+                <button class="pagination-page another-page" 
+                   onclick="changePage(new_page='{{ p }}'); loadActivities()">
+                   <p>{{ p }}</p>
+                </button>
+            {% endif %}
+        {% endfor %}
+    </div> 
+{% endif %}
+</div>

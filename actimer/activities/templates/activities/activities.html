@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %} Activities {% endblock %}
+
+{% block content %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/activities.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/activities.css' %}">
+
+    <div class="container">
+        <div class="heading">
+            <h1>Activities</h1>
+        </div>
+
+        <div id="activities-list">
+            {% include 'activities/inc/activities-list.html' %}
+        </div>
+
+    <script src="{% static 'js/load_activities.js' %}"></script>
+{% endblock %}

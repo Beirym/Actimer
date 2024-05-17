@@ -1,0 +1,42 @@
+.activities-list {
+    display: grid;
+    row-gap: 10px;
+}
+
+.activity-card {
+    display: flex;
+    width: 100%;
+    height: 70px;
+    padding: 20px;
+    border-radius: 15px;
+    background-color: #EEEEEE;
+    align-content: center;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.activity-card h2 {
+    font-size: 20px;
+    font-weight: 400;
+    color: #000000;
+}
+.activity-card .heading p {
+    font-size: 20px;
+    font-weight: 400;
+    color: #595959;
+}
+
+.activity-card .data {
+    display: grid;
+    column-gap: 10px;
+    align-items: center;
+    text-align: end;
+}
+.activity-card .data p {
+    font-size: 16px;
+    color: #595959;
+}
+.activity-card .data p span{
+    font-size: 16px;
+    color: #000000;
+}
