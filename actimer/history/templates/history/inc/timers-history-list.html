@@ -1,0 +1,44 @@
+{% load timer_tags %}
+
+
+<div class="timers-list">
+    {% for t in timers.list %}
+        <div class="timer-card">
+            <div class="heading">
+                <h2>{{ t.activity }}</h2>
+                <p>{{ t|timer_duration }}</p>
+            </div>
+            <div class="period">
+                <p>{{ t.startTime }}</p>
+                <hr>
+                {% if t.endTime %}
+                    <p>{{ t.endTime }}</p>
+                {% else %}
+                    <p>Now</p>
+                {% endif %}
+            </div>
+        </div>
+    {% empty %}
+        <p class="empty-history">This history page is clear</p>
+        <button class="pagination-page another-page" 
+                onclick="changePage(new_page='1'); loadTimersHistory()">
+                <p>Back to the first page</p>
+        </button>
+    {% endfor %}
+</div>
+
+{% if paginator.pages.count > 1 %}
+    <div class="pagination">
+        {% for p in paginator.pages.range %}
+            {% if paginator.current_page == p %}
+                <p class="pagination-page current-page">{{ p }}</p>
+            {% elif p > paginator.current_page|add:-3 and p < paginator.current_page|add:3 %}
+                <button class="pagination-page another-page" 
+                   onclick="changePage(new_page='{{ p }}'); loadTimersHistory()">
+                   <p>{{ p }}</p>
+                </button>
+            {% endif %}
+        {% endfor %}
+    </div> 
+{% endif %}
+</div>

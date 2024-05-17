@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %} History {% endblock %}
+
+{% block content %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/history.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/history-media.css' %}">
+
+    <div class="container">
+        <div class="heading">
+            <h1>History</h1>
+        </div>
+
+        <div id="history-timers-list">
+            {% include 'history/inc/timers-history-list.html' %}
+        </div>
+
+    <script src="{% static 'js/load_history.js' %}"></script>
+{% endblock %}
