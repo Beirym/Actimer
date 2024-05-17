@@ -112,3 +112,32 @@ wrapper {
     stroke-dashoffset: -124;
     }
 }
+
+
+.pagination {
+    display: flex;
+    margin-top: 20px;
+    column-gap: 5px;
+}
+.pagination-page {
+    max-width: 200px;
+    padding: 20px;
+    border-radius: 15px;
+    background-color: #F5F5F5;
+    transition: 0.25s;
+}
+.current-page {
+    color: #ffff;
+    background-color: #2E2E2E;
+}
+.another-page:hover {
+    color: #ffff;
+    background-color: #2E2E2E;
+    transition: 0.25s;
+}
+
+.empty {
+    margin: 20px 0 20px 0;
+    font-weight: 300;
+    font-size: 18px;
+}
