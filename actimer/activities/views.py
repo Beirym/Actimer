@@ -2,6 +2,7 @@ from django.shortcuts import render
 from django.template.loader import render_to_string
 from django.http import JsonResponse, Http404
 
+from auth.decorators import is_authorized
 from .activities import *
 
 from users.models import User
@@ -9,6 +10,7 @@ from users.models import User
 import math
 
 
+@is_authorized
 def activities(request):
     page = request.GET.get('page')
     if page is None:

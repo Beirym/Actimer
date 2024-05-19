@@ -2,12 +2,14 @@ from django.shortcuts import render
 from django.template.loader import render_to_string
 from django.http import JsonResponse, Http404
 
+from auth.decorators import is_authorized
 from users.models import User
 from timers.models import Timer
 
 import math
 
 
+@is_authorized
 def history(request):
     page = request.GET.get('page')
     if page is None:
