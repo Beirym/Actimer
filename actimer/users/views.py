@@ -39,12 +39,16 @@ def changeUserData(request):
             current_utc_hour = timezone.now().hour
             delta = int(new_field_value) - current_utc_hour
             if delta > 0:
-                user.timezone = f'UTC+{delta}'
+                new_timezone = f'UTC+{delta}'
             elif delta < 0:
-                user.timezone = f'UTC-{abs(delta)}'
+                new_timezone = f'UTC-{abs(delta)}'
             else:
-                user.timezone = 'UTC'
+                new_timezone = 'UTC'
+                
+            user.timezone = new_timezone
             user.save()
+            request.session['user']['timezone'] = new_timezone
+            request.session.save()
 
 
     return HttpResponse(status=204)

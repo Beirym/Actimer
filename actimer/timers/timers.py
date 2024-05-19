@@ -17,6 +17,11 @@ def deleteTimerDataFromSession(request) -> None:
         request.session.save()
         
 
+def transformDatetimeFormat(value: datetime.datetime) -> datetime.datetime:
+    to_format = '%Y-%m-%dT%H:%M:%S.%fZ'
+    datetime_str = value.strftime(to_format)
+    return datetime.datetime.strptime(datetime_str, to_format)
+
 def getTimerDuration(timer: Timer) -> datetime.timedelta:
     if timer.endTime is None:
         end_time = timezone.now()
@@ -27,11 +32,12 @@ def getTimerDuration(timer: Timer) -> datetime.timedelta:
     timer_duration = end_time - start_time
     if timer.pauses:
         for p in timer.pauses.values():
-            pause_start = datetime.datetime.strptime(p['start'], '%Y-%m-%dT%H:%M:%S.%f')
+            pause_start = datetime.datetime.strptime(p['start'], '%Y-%m-%dT%H:%M:%S.%fZ')
             try:
-                pause_end = datetime.datetime.strptime(p['end'], '%Y-%m-%dT%H:%M:%S.%f')
+                pause_end = datetime.datetime.strptime(p['end'], '%Y-%m-%dT%H:%M:%S.%fZ')
                 pause_duration = pause_end - pause_start
             except KeyError:
+                end_time = transformDatetimeFormat(end_time)
                 pause_duration = end_time - pause_start
             timer_duration -= pause_duration
     return timer_duration
