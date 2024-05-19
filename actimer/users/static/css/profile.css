@@ -1,0 +1,44 @@
+.user-info {
+    display: grid;
+    row-gap: 10px;
+}
+
+.user-info-field {
+    display: flex;
+    width: 100%;
+    height: 70px;
+    padding: 20px;
+    border-radius: 15px;
+    column-gap: 20px;
+    background-color: #F5F5F5;
+    align-items: center;
+    justify-content: space-between;
+}
+.user-info-field .data {
+    display: flex;
+    column-gap: 10px;
+}
+.user-info-field .data h2 {
+    font-size: 18px;
+    font-weight: 400;
+    color: #595959;
+}
+.user-info-field .data p {
+    font-size: 18px;
+    font-weight: 400;
+    color: #000000;
+}
+.user-info-field button {
+    width: 150px;
+    height: 50px;
+    padding: 10px;
+    color: #000000;
+    border-radius: 15px;
+    background-color: #E3E3E3;
+    transition: 0.25s;
+}
+.user-info-field button:hover {
+    color: #ffff;
+    background-color: #2E2E2E;
+    transition: 0.25s;
+}

@@ -80,12 +80,14 @@ def getTimerData(timer: Timer|None) -> dict:
 
 
 def getActiveTimer(request, user) -> dict:
-    if 'timer' in request.session.keys():
-        timer = Timer.objects.get(pk=request.session['timer']['id'])
-    else:
-        try:
+    try:
+        if 'timer' in request.session.keys():
+            timer = Timer.objects.get(pk=request.session['timer']['id'])
+        else:
             timer = Timer.objects.filter(user=user, endTime=None)[0]
-        except IndexError:
-            timer = None
+    except (Timer.DoesNotExist, IndexError):
+        deleteTimerDataFromSession(request)
+        timer = None
+
 
     return getTimerData(timer)

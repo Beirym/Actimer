@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %} Profile {% endblock %}
+
+{% block content %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/profile.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/profile-media.css' %}">
+
+    <div class="container">
+        <div class="heading">
+            <h1>Profile</h1>
+        </div>
+
+        <div class="user-info">
+            <div class="user-info-field">
+                <div class="data">
+                    <h2>E-Mail</h2>
+                    <p>{{ user.email }}</p>
+                </div>
+                <button onclick="changeUserData('{{ csrf_token }}', field='email')"><p>Change</p></button>
+            </div>
+            <div class="user-info-field">
+                <div class="data">
+                    <h2>Password</h2>
+                </div>
+                <button onclick="changeUserData('{{ csrf_token }}', field='password')"><p>Change</p></button>
+            </div>
+            <div class="user-info-field">
+                <div class="data">
+                    <h2>Timezone</h2>
+                    <p>{{ user.timezone }}</p>
+                </div>
+                <button onclick="changeUserData(
+                                    '{{ csrf_token }}', 
+                                    field='timezone', 
+                                    new_value=null,
+                                    placeholder='Specify your current hour'
+                                )">
+                    <p>Change</p>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script src="{% static 'js/change-user-data.js' %}"></script>
+{% endblock %}

@@ -95,14 +95,14 @@
     width: 100%;
     padding: 10px;
     border-radius: 10px;
-    color: #2D2D2D;
-    background-color: #ffffff;
+    color: #ffffff;
+    background-color: #3d3d3d;
 }
 .modal-content input::placeholder {
-    color: #353535;
+    color: #ffffff;
     transition: 0.25s;
 }
 .modal-content input:focus::placeholder{
-    color: #2D2D2D;
+    color: rgb(121, 121, 121);
     transition: 0.25s;
 }

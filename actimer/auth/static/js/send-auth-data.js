@@ -50,19 +50,8 @@ function authDataValidation(auth_type, auth_data) {
             errors.push({'field': field, 'error': 'Fill in this field'});
             continue
         }
-        
-        if (field == 'name') {
-            if (value.length < 2) {
-                errors.push({'field': field, 'error': 'The name is too short'});
-                continue
-            }
-            else if (/^[A-Za-zА-Яа-я\s]+$/.test(value) == false) {
-                errors.push({'field': field, 'error': 'The name should consist only of letters'});
-                continue
-            }
-        }
 
-        else if (field == 'email') {
+        if (field == 'email') {
             if (email_regex.test(value) == false) {
                 errors.push({'field': field, 'error': 'Incorrect E-Mail'});
                 continue
