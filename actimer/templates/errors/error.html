@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/errors.css' %}">
+
+    <div class="error-block">
+        <h1 class="error-title">
+            {% block error_title %}{% endblock %}
+        </h1>
+        <p class="error-description">
+            {% block error_description %}{% endblock %}
+        </p>
+    </div>
+{% endblock %}
