@@ -12,3 +12,12 @@ class Session(models.Model):
     class Meta:
         db_table = 'sessions'
         ordering = ['-authDate']
+
+
+class UserActivation(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='User')
+    code = models.CharField(verbose_name='Confirmation code')
+    sendingTime = models.DateTimeField(auto_now_add=True, verbose_name='Sending time')
+
+    class Meta:
+        db_table = 'email_confirmations'

@@ -1,0 +1,23 @@
+{% extends 'auth/auth.html' %}
+{% load static %}
+
+{% block text %}
+    {% if invalid_code %}
+        <p style="margin-top: -50px; color: #e25959;">
+            An invalid confirmation code or one that has expired. We have sent a new code, check your email again.
+        </p>
+    {% else %}
+        <p style="margin-top: -50px;">We have sent an email to your email address with a confirmation link.</p>
+    {% endif %}
+{% endblock %}
+
+{% block buttons %}
+    <a href="{% url 'confirm_email' %}" class="action-button">
+        <p>Send it again</p>
+    </a>
+    <button class="change-auth-mode-button" onclick="stopConfirmationProcess('{{ csrf_token }}')">
+        <p>Change email</p>
+    </button>
+
+    <script src="{% static 'js/account-activation.js' %}"></script>
+{% endblock %}

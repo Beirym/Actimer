@@ -12,7 +12,8 @@ class User(models.Model):
         verbose_name='Password'
     )
     timezone = models.CharField(blank=True, default='UTC')
-    registrationDate = models.DateTimeField(auto_now_add=True)
+    is_activated = models.BooleanField(default=False, verbose_name='Account activation status')
+    registrationDate = models.DateTimeField(auto_now_add=True, verbose_name='Registration date')
 
     class Meta:
         db_table = 'users'

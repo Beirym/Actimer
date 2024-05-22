@@ -12,6 +12,8 @@ def is_authorized(func):
 
         if user is None:
             return redirect('login')
+        elif user.is_activated is False:
+            return redirect('confirm_email')
         return func(request, kwargs) if kwargs else func(request)
 
     return wrapper
@@ -27,4 +29,19 @@ def is_unauthorized(func):
             return redirect('timer')
         return func(request)
         
+    return wrapper
+
+
+def is_unactivated(func):
+    '''Checks the web-client account is not activated.'''
+    
+    def wrapper(request):
+        user = is_auth(request)
+
+        if user is None:
+            return redirect('login')
+        elif user.is_activated:
+            return redirect('timer')
+        return func(request)
+
     return wrapper

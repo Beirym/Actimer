@@ -73,6 +73,18 @@ body {
 }
 
 
+.auth-window .text {
+    display: grid;
+    margin: 0 auto;
+    row-gap: 5px;
+    max-width: 450px;
+}
+.auth-window .text p {
+    color: #ffff;
+    font-size: 16px;
+}
+
+
 .auth-window .buttons {
     display: grid;
     margin: 0 auto;
