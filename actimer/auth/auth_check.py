@@ -20,6 +20,6 @@ def is_auth(request) -> int:
                 and (datetime.date.today() - session.authDate.date()).days < 7:
                 return session.user
             else:
-                Session.objects.delete(pk=session_id)
+                session.delete()
         except Session.DoesNotExist:
             return
