@@ -26,6 +26,7 @@ def history(request):
     pages_count = math.ceil(timers_count / 10)
 
     context = {
+        'request': request,
         'timers': {
             'count': timers_count,
             'list': timers_list,
