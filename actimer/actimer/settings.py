@@ -97,7 +97,7 @@ STATICFILES_DIRS = [
 if DEBUG is False:
     STATIC_ROOT = 'static'
 else:
-    STATICFILES_DIRS.append(os.path.join('static'))
+    STATICFILES_DIRS.append(os.path.join(BASE_DIR, 'static'))
 
 
 # Default primary key field type
